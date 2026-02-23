@@ -1,0 +1,356 @@
+
+// Custom Theming for Angular Material
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// ─── Premium Color Palette ───────────────────────────────
+$lms-primary: mat.define-palette(mat.$indigo-palette, 700, 400, 900);
+$lms-accent:  mat.define-palette(mat.$cyan-palette, A200, A100, A400);
+$lms-warn:    mat.define-palette(mat.$red-palette, 500);
+
+$lms-theme: mat.define-light-theme((
+  color:      ( primary: $lms-primary, accent: $lms-accent, warn: $lms-warn ),
+  typography: mat.define-typography-config(
+    $font-family: "'Inter', 'Segoe UI', Roboto, sans-serif",
+  ),
+  density: 0,
+));
+
+@include mat.all-component-themes($lms-theme);
+
+// ─── Dark theme (Material) ───────────────────────────────
+$lms-dark-theme: mat.define-dark-theme((
+  color: ( primary: $lms-primary, accent: $lms-accent, warn: $lms-warn ),
+  density: 0,
+));
+
+body.dark-theme {
+  @include mat.all-component-colors($lms-dark-theme);
+}
+
+// ─── CSS Custom Properties (Design Tokens) ──────────────
+:root {
+  // Surfaces
+  --bg-body:        #f0f2f5;
+  --bg-card:        #ffffff;
+  --bg-sidebar:     #0f172a;
+  --bg-sidebar-hover: rgba(255,255,255,0.06);
+  --bg-toolbar:     #ffffff;
+
+  // Accent / brand
+  --brand:          #4f46e5;
+  --brand-light:    #818cf8;
+  --brand-lighter:  #e0e7ff;
+  --brand-dark:     #3730a3;
+
+  // Text
+  --text-primary:   #0f172a;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+  --text-on-dark:   #f8fafc;
+
+  // Borders
+  --border:         #e2e8f0;
+  --border-light:   #f1f5f9;
+
+  // Elevation
+  --shadow-xs:  0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:  0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+  --shadow-lg:  0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+  --shadow-xl:  0 20px 25px -5px rgba(0,0,0,0.10), 0 8px 10px -6px rgba(0,0,0,0.05);
+
+  // Radius
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+  --radius-xl:  20px;
+  --radius-full: 9999px;
+
+  // Status
+  --status-pending:   #f59e0b;
+  --status-approved:  #10b981;
+  --status-rejected:  #ef4444;
+  --status-cancelled: #6b7280;
+}
+
+// ─── Dark Mode Overrides ─────────────────────────────────
+body.dark-theme {
+  // Surfaces
+  --bg-body:            #0b0f19;
+  --bg-card:            #111827;
+  --bg-sidebar:         #0b0f19;
+  --bg-sidebar-hover:   rgba(255,255,255,0.06);
+  --bg-toolbar:         #111827;
+
+  // Accent
+  --brand:              #818cf8;
+  --brand-light:        #a5b4fc;
+  --brand-lighter:      rgba(99,102,241,0.15);
+  --brand-dark:         #6366f1;
+
+  // Text
+  --text-primary:       #f1f5f9;
+  --text-secondary:     #94a3b8;
+  --text-muted:         #64748b;
+  --text-on-dark:       #f8fafc;
+
+  // Borders
+  --border:             #1e293b;
+  --border-light:       #1e293b;
+
+  // Elevation – lighter shadows on dark bg don't help, use luminous edges
+  --shadow-xs:  0 1px 2px rgba(0,0,0,0.4);
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md:  0 4px 6px -1px rgba(0,0,0,0.5), 0 2px 4px -2px rgba(0,0,0,0.4);
+  --shadow-lg:  0 10px 15px -3px rgba(0,0,0,0.5), 0 4px 6px -4px rgba(0,0,0,0.4);
+  --shadow-xl:  0 20px 25px -5px rgba(0,0,0,0.6), 0 8px 10px -6px rgba(0,0,0,0.4);
+
+  color-scheme: dark;
+
+  // Scrollbar for dark mode
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.12);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.22);
+  }
+
+  // Material table row hover
+  .mat-mdc-row:hover .mat-mdc-cell {
+    background: rgba(99, 102, 241, 0.06) !important;
+  }
+  .mat-mdc-header-cell {
+    background: #0f1629 !important;
+  }
+
+  // Cards border
+  .mat-mdc-card {
+    border-color: var(--border) !important;
+  }
+
+  // Menu panel
+  .mat-mdc-menu-panel {
+    background: #1e293b !important;
+  }
+
+  // Dialog
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    background: #1e293b !important;
+  }
+
+  // Select / Autocomplete panel
+  .mat-mdc-select-panel,
+  .mat-mdc-autocomplete-panel {
+    background: #1e293b !important;
+  }
+
+  // Form field outlines
+  .mat-mdc-form-field {
+    .mdc-text-field--outlined .mdc-notched-outline > * {
+      border-color: #334155 !important;
+    }
+  }
+}
+
+// ─── Dark mode transition ────────────────────────────────
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// ─── Base Reset ──────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-body);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { text-decoration: none; color: inherit; }
+
+// ─── Scrollbar ───────────────────────────────────────────
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.12);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.22); }
+
+// ─── Snackbar Styles ─────────────────────────────────────
+.snackbar-success {
+  --mdc-snackbar-container-color: #059669 !important;
+  --mdc-snackbar-supporting-text-color: white !important;
+  border-radius: var(--radius-md) !important;
+}
+.snackbar-error {
+  --mdc-snackbar-container-color: #dc2626 !important;
+  --mdc-snackbar-supporting-text-color: white !important;
+  border-radius: var(--radius-md) !important;
+}
+.snackbar-warning {
+  --mdc-snackbar-container-color: #d97706 !important;
+  --mdc-snackbar-supporting-text-color: white !important;
+  border-radius: var(--radius-md) !important;
+}
+.snackbar-info {
+  --mdc-snackbar-container-color: #2563eb !important;
+  --mdc-snackbar-supporting-text-color: white !important;
+  border-radius: var(--radius-md) !important;
+}
+
+// ─── Material Component Overrides ────────────────────────
+
+// Cards
+.mat-mdc-card {
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-sm) !important;
+  border: 1px solid var(--border-light);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-md) !important;
+  }
+}
+
+// Buttons
+.mat-mdc-raised-button,
+.mat-mdc-flat-button {
+  border-radius: var(--radius-sm) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  box-shadow: var(--shadow-xs) !important;
+}
+
+.mat-mdc-stroked-button {
+  border-radius: var(--radius-sm) !important;
+  font-weight: 500 !important;
+}
+
+.mat-mdc-icon-button {
+  transition: background 0.15s ease;
+}
+
+// Form Fields
+.mat-mdc-form-field {
+  font-size: 14px;
+
+  .mdc-text-field--outlined .mdc-notched-outline > * {
+    border-color: var(--border) !important;
+  }
+}
+
+// Tables
+.mat-mdc-table {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+
+  .mat-mdc-header-cell {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--bg-body);
+    border-bottom-color: var(--border);
+  }
+
+  .mat-mdc-cell {
+    font-size: 13.5px;
+    color: var(--text-primary);
+    border-bottom-color: var(--border-light);
+  }
+
+  .mat-mdc-row:hover .mat-mdc-cell {
+    background: rgba(79, 70, 229, 0.02);
+  }
+}
+
+// Toolbar
+.mat-toolbar {
+  font-family: 'Inter', sans-serif !important;
+}
+
+// Dialog
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: var(--radius-lg) !important;
+}
+
+// Paginator
+.mat-mdc-paginator {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+// ─── Shared Utility Classes ─────────────────────────────
+
+// Premium Status Chip
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: white;
+  line-height: 1;
+}
+
+// Premium Empty State
+.empty-state {
+  text-align: center;
+  padding: 56px 24px;
+  color: var(--text-muted);
+
+  mat-icon {
+    font-size: 56px;
+    width: 56px;
+    height: 56px;
+    opacity: 0.5;
+    margin-bottom: 12px;
+  }
+
+  p {
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .empty-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+}
+
+// Page header pattern
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+}
