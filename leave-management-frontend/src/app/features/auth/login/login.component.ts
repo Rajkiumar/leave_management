@@ -315,7 +315,7 @@ export class LoginComponent {
   }
 
   fillDemo(email: string): void {
-    this.loginForm.patchValue({ email, password: 'demo123' });
+    this.loginForm.patchValue({ email, password: 'password123' });
   }
 
   onSubmit(): void {

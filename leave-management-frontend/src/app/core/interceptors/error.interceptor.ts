@@ -14,6 +14,7 @@ export const errorInterceptor: HttpInterceptorFn = (
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       let errorMessage = 'An unexpected error occurred';
+      const isAuthEndpoint = req.url.includes('/auth/login') || req.url.includes('/auth/register') || req.url.includes('/auth/refresh');
 
       switch (error.status) {
         case 0:
@@ -23,8 +24,12 @@ export const errorInterceptor: HttpInterceptorFn = (
           errorMessage = error.error?.message || 'Invalid request. Please check your input.';
           break;
         case 401:
-          errorMessage = 'Session expired. Please login again.';
-          authService.logout();
+          if (isAuthEndpoint) {
+            errorMessage = error.error?.message || 'Invalid email or password.';
+          } else {
+            errorMessage = 'Session expired. Please login again.';
+            authService.logout();
+          }
           break;
         case 403:
           errorMessage = 'You do not have permission to perform this action.';
